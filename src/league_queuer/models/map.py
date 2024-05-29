@@ -21,10 +21,12 @@ class Map(BaseModel):
     map_string_id: str = Field(..., alias="mapStringId")
     name: str
     per_position_disallowed_summoner_spells: PerPositionDisallowedSummonerSpells = Field(
-        ..., alias="perPositionDisallowedSummonerSpells"
+        ...,
+        alias="perPositionDisallowedSummonerSpells",
     )
     per_position_required_summoner_spells: PerPositionRequiredSummonerSpells = Field(
-        ..., alias="perPositionRequiredSummonerSpells"
+        ...,
+        alias="perPositionRequiredSummonerSpells",
     )
     platform_id: str = Field(..., alias="platformId")
     platform_name: str = Field(..., alias="platformName")

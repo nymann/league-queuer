@@ -15,12 +15,12 @@ class LcuApi:
 
     @classmethod
     def from_wmic(cls) -> "LcuApi":
-        command = f"wmic process where \"caption='LeagueClientUx.exe'\" get Caption,Processid,Commandline"
-        result = os.popen(command).read()
-        port = int(result.split("app-port=")[2].split('"')[0])
-        key = result.split("remoting-auth-token=")[1].split('"')[0]
+        command = "wmic process where \"caption='LeagueClientUx.exe'\" get Caption,Processid,Commandline"
+        process_details = os.popen(command).read()  # noqa: S605
+        port = process_details.split("app-port=")[2].split('"')[0]
+        key = process_details.split("remoting-auth-token=")[1].split('"')[0]
         auth_token = base64.b64encode(f"riot:{key}".encode()).decode()
-        return cls(port=port, auth_token=auth_token)
+        return cls(port=int(port), auth_token=auth_token)
 
     def accept_queue(self) -> None:
         response = requests.post(f"{self._url}/lol-matchmaking/v1/ready-check/accept", headers=self._headers)
